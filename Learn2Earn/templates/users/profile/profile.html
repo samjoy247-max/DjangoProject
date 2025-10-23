@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>My Profile</h3>
+        </div>
+        <div class="card-body">
+            <div class="text-center mb-3">
+                {% if profile.profile_picture %}
+                    <img src="{{ profile.profile_picture.url }}" width="150" height="150" class="rounded-circle" style="object-fit: cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" class="rounded-circle">
+                {% endif %}
+            </div>
+
+            <p><strong>Username:</strong> {{ profile.user.username }}</p>
+            <p><strong>Email:</strong> {{ profile.user.email }}</p>
+            <p><strong>User Type:</strong> {{ profile.user_type }}</p>
+
+            <a href="{% url 'users:update_profile' %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'users:delete_user' %}" class="btn btn-danger">Delete Account</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
