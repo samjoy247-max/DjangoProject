@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Book Service: {{ service.title }}</h2>
+    <p><strong>Provider:</strong> {{ service.provider.username }}</p>
+    <p><strong>Price per Hour:</strong> ৳{{ service.price_per_hour }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Booking Date</label>
+            <input type="date" name="booking_date" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Duration (hours)</label>
+            <input type="number" name="duration" class="form-control" min="1" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Booking</button>
+        <a href="{% url 'users:service_detail' service.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
