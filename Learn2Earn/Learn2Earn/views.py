@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from users.models import UserProfile
 
-# Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    profile = None
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.filter(user=request.user).first()
+
+    return render(request, 'home.html', {'profile': profile})
