@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>THIS IS LEARN2EARN</h1>
-<h6>Change by niloy</h6>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mt-5">
+    {% if user.is_authenticated %}
+        <div class="d-flex align-items-center">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" class="rounded-circle me-3" style="width: 80px; height: 80px; object-fit: cover;" alt="Profile">
+            {% endif %}
+            <div>
+                <h1>Welcome, {{ user.username }}!</h1>
+                <p class="lead mb-0">You are now part of Learn2Earn community.</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h1>Welcome to Learn2Earn</h1>
+            <p class="lead">A student earning platform where skills meet opportunities</p>
+            <a href="{% url 'users:register' %}" class="btn btn-primary btn-lg">Get Started</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
