@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Available Services</h2>
+
+    <div class="mb-3">
+        {% if profile.user_type == 'provider' %}
+        <a href="{% url 'users:my_services' %}" class="btn btn-secondary">My Services</a>
+        <a href="{% url 'users:create_service' %}" class="btn btn-primary">Create Service</a>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                {% if service.service_image %}
+                <img src="{{ service.service_image.url }}" class="card-img-top" alt="{{ service.title }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <span>No Image</span>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.title }}</h5>
+                    <p class="card-text">Category: {{ service.category }}</p>
+                    <p class="card-text">Price: ৳{{ service.price_per_hour }}/hour</p>
+                    <p class="card-text">Provider: {{ service.provider.username }}</p>
+                    <a href="{% url 'users:service_detail' service.id %}" class="btn btn-primary btn-sm">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No services available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
