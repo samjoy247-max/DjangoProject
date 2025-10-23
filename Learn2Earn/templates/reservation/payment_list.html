@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Payments</h2>
+
+    {% if payments %}
+        {% for payment in payments %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p><strong>Booking:</strong> {{ payment.booking.service.title }}</p>
+                <p><strong>Amount:</strong> ${{ payment.amount }}</p>
+                <p><strong>Transaction ID:</strong> {{ payment.transaction_id }}</p>
+                <p><strong>Status:</strong> {{ payment.status }}</p>
+                <p><strong>Date:</strong> {{ payment.payment_date }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No payments yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
