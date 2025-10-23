@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Message</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="content" class="form-control" rows="4" required>{{ message.content }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{% url 'messaging:inbox' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
