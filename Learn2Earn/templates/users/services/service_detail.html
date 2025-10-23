@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ service.title }}</h2>
+    <p><strong>Category:</strong> {{ service.category }}</p>
+    <p><strong>Price per Hour:</strong> ৳{{ service.price_per_hour }}</p>
+    <p><strong>Description:</strong> {{ service.description }}</p>
+    <p><strong>Status:</strong> {{ service.status }}</p>
+    <p><strong>Provider:</strong> {{ service.provider.username }}</p>
+
+    {% if user.is_authenticated and user != service.provider %}
+    <a href="{% url 'messaging:send_to_provider' service.provider.id %}" class="btn btn-primary">Message Provider</a>
+    <a href="{% url 'reservation:create_booking' service.id %}" class="btn btn-success">Book Now</a>
+    {% endif %}
+
+    {% if user == service.provider %}
+    <a href="{% url 'users:update_service' service.id %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'users:delete_service' service.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+
+    <a href="{% url 'users:service_list' %}" class="btn btn-secondary">Back to Services</a>
+
+   
+    <hr class="my-4">
+    <h3>Reviews</h3>
+
+    {% if reviews %}
+        {% for review in reviews %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+                <p>{{ review.comment }}</p>
+                <small class="text-muted">By {{ review.booking.seeker.username }} on {{ review.created_at }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
