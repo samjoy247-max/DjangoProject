@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Update Booking</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Booking Date</label>
+            <input type="date" name="booking_date" class="form-control" value="{{ booking.booking_date|date:'Y-m-d' }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Duration (hours)</label>
+            <input type="number" name="duration" class="form-control" value="{{ booking.duration }}" min="1" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{% url 'reservation:my_bookings' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
