@@ -104,14 +104,13 @@ def service_list(request):
     return render(request, 'users/services/service_list.html', {'services': services})
 
 
-# SERVICE DETAIL
-# SERVICE DETAIL
+
 def service_detail(request, service_id):
 
 
     service = Service.objects.get(pk=service_id)
 
-    # Get all reviews for this service
+
     reviews = Review.objects.filter(booking__service=service).order_by('-created_at')
 
     return render(request, 'users/services/service_detail.html', {
